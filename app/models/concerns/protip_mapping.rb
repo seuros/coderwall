@@ -2,6 +2,7 @@ module ProtipMapping
   extend ActiveSupport::Concern
 
   included do
+    include Elasticsearch::Model
     settings analysis: {
         analyzer: {
             comma: {"type" => "pattern",

@@ -2,6 +2,7 @@ module TeamMapping
   extend ActiveSupport::Concern
 
   included do
+    include Elasticsearch::Model
     mapping team: {
         properties: {
             id:                 { type: 'string', index: 'not_analyzed' },

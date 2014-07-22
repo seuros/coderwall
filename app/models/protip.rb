@@ -9,7 +9,6 @@ class Protip < ActiveRecord::Base
   # TODO: Break out the various responsibilities on the Protip into modules/concerns.
 
   include NetValidators
-  include Tire::Model::Search
   include Scoring::HotStream
   include SearchModule
   include Rakismet::Model

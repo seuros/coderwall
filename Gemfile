@@ -66,7 +66,7 @@ gem 'kaminari'
 gem 'chronic'
 
 # Redis
-gem 'redis-rails', '~> 3.2'
+gem 'redis-rails' , '~> 3.2'
 
 
 gem 'sidekiq'
@@ -93,7 +93,6 @@ gem 'foreman'
 gem 'awesome_print'
 
 gem 'faraday', '~> 0.8.1'
-gem 'metamagic'
 
 # ----------------
 
@@ -134,9 +133,10 @@ gem 'postgres_ext'
 group :production do
   gem 'heroku_rails_deflate'
 end
-# ElasticSearch client
-gem 'tire'
 # /DROP BEFORE RAILS 4
+
+# ElasticSearch client
+gem 'elasticsearch-model'
 
 group :development do
   gem 'better_errors'

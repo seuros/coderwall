@@ -1,8 +1,6 @@
 require 'search'
 
 class Opportunity < ActiveRecord::Base
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
   include SearchModule
   include OpportunityMapping
 

@@ -80,7 +80,6 @@ GEM
     annotate (2.6.5)
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
-    ansi (1.4.3)
     arel (3.0.3)
     ast (2.0.0)
     autoprefixer-rails (2.2.0.20140727)
@@ -186,6 +185,18 @@ GEM
       execjs
     eco-source (1.1.0.rc.1)
     ejs (1.1.1)
+    elasticsearch (1.0.4)
+      elasticsearch-api (= 1.0.4)
+      elasticsearch-transport (= 1.0.4)
+    elasticsearch-api (1.0.4)
+      multi_json
+    elasticsearch-model (0.1.4)
+      activesupport (> 3)
+      elasticsearch (> 0.4)
+      hashie
+    elasticsearch-transport (1.0.4)
+      faraday
+      multi_json
     em-http-request (1.1.2)
       addressable (>= 2.3.4)
       cookiejar
@@ -297,7 +308,6 @@ GEM
       tilt
     handlebars-source (1.3.0)
     hashie (2.1.2)
-    hashr (0.0.22)
     heroku_rails_deflate (1.0.3)
       actionpack (>= 3.2.13)
       activesupport (>= 3.2.13)
@@ -350,8 +360,6 @@ GEM
       treetop (~> 1.4.8)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
-    metamagic (3.1.3)
-      rails (>= 3.0.0)
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_magick (3.8.0)
@@ -644,14 +652,6 @@ GEM
     tilt (1.4.1)
     timecop (0.7.1)
     timers (1.1.0)
-    tire (0.6.2)
-      activemodel (>= 3.0)
-      activesupport
-      ansi
-      hashr (~> 0.0.19)
-      multi_json (~> 1.3)
-      rake
-      rest-client (~> 1.6)
     travis (1.6.9)
       addressable (~> 2.3)
       backports
@@ -719,6 +719,7 @@ DEPENDENCIES
   createsend
   database_cleaner
   dotenv-rails
+  elasticsearch-model
   ember-rails!
   fabrication-rails
   faraday (~> 0.8.1)
@@ -746,7 +747,6 @@ DEPENDENCIES
   launchy
   linkedin
   local_time
-  metamagic
   mini_magick
   mixpanel
   mongo
@@ -800,7 +800,6 @@ DEPENDENCIES
   strong_parameters
   syntax
   timecop
-  tire
   travis
   tweet-button
   twitter
