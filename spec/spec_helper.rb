@@ -15,6 +15,7 @@ require 'webmock/rspec'
 # WebMock.disable_net_connect!(allow_localhost: true)
 
 require 'sidekiq/testing/inline'
+require 'typhoeus/adapters/faraday'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
