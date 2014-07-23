@@ -69,11 +69,12 @@ namespace :search do
   # PRODUCTION: RUNS DAILY
   desc 'Sychronize index of the protips between the database and ElasticSearch'
   task :sync => :environment do
-    number_of_protips_in_index = Protip.tire.search { query { all } }.total
+    #TODO
+    number_of_protips_in_index = Protip.tire.search_by_string { query { all } }.total
     number_of_protips_in_database = Protip.count
 
     if number_of_protips_in_index != number_of_protips_in_database
-      protips_in_index = Protip.tire.search do
+      protips_in_index = Protip.tire.search_by_string do
         size number_of_protips_in_index
         query { all }
       end.map { |protip| protip.id.to_i }

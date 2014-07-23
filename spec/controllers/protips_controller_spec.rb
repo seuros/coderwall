@@ -30,7 +30,7 @@ RSpec.describe ProtipsController, :type => :controller do
 
     describe "not banned" do
       it "should assign user @protips for page" do
-        Protip.rebuild_index
+        Protip.__elasticsearch__.refresh_index!
         protip = Protip.create! valid_attributes
         get :user, {username: current_user.username}, valid_session
         expect(assigns(:protips).results.first.title).to eq(protip.title)

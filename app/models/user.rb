@@ -833,7 +833,7 @@ class User < ActiveRecord::Base
     if force
       self.likes.where(likable_type: 'Protip').map(&:likable)
     else
-      Protip.search("bookmark:#{self.username}", [], per_page: count)
+      Protip.search_by_string("bookmark:#{self.username}", [], per_page: count)
     end
   end
 
@@ -841,7 +841,7 @@ class User < ActiveRecord::Base
     if force
       self.protips
     else
-      Protip.search("author:#{self.username}", [], per_page: count)
+      Protip.search_by_string("author:#{self.username}", [], per_page: count)
     end
   end
 

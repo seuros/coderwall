@@ -1,5 +1,6 @@
 require 'net_validators'
 require 'open-uri'
+require 'taggers'
 require 'cfm'
 require 'scoring'
 require 'search'
@@ -15,7 +16,7 @@ class Protip < ActiveRecord::Base
 
   acts_as_commentable
 
-  include ProtipMapping
+  include ProtipSearch
 
   paginates_per(PAGESIZE = 18)
 
@@ -320,21 +321,6 @@ class Protip < ActiveRecord::Base
     end
 
   end
-
-  #######################
-  # Homepage 4.0 rewrite
-  #######################
-  #TODO REMOVE
-    def deindex_search
-      ProtipIndexer.new(self).remove
-    end
-    def index_search
-      ProtipIndexer.new(self).store
-    end
-
-    def index_search_after_destroy
-      self.tire.update_index
-    end
 
 
   def networks
@@ -927,7 +913,6 @@ class Protip < ActiveRecord::Base
 end
 
 # == Schema Information
-# Schema version: 20140728214411
 #
 # Table name: protips
 #

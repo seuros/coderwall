@@ -175,21 +175,21 @@ class Network < ActiveRecord::Base
   end
 
   def new_protips(limit = nil, offset = 0)
-    Protip.search("sort:created_at desc", self.tags, page: offset, per_page: limit)
+    Protip.search_by_string("sort:created_at desc", self.tags, page: offset, per_page: limit)
   end
 
   def featured_protips(limit = nil, offset = 0)
     #self.protips.where(:featured => true)
-    Protip.search("featured:true", self.tags, page: offset, per_page: limit)
+    Protip.search_by_string("featured:true", self.tags, page: offset, per_page: limit)
 
   end
 
   def flagged_protips(limit = nil, offset = 0)
-    Protip.search("flagged:true", self.tags, page: offset, per_page: limit)
+    Protip.search_by_string("flagged:true", self.tags, page: offset, per_page: limit)
   end
 
   def highest_scored_protips(limit=nil, offset =0, field=:trending_score)
-    Protip.search("sort:#{field} desc", self.tags, page: offset, per_page: limit)
+    Protip.search_by_string("sort:#{field} desc", self.tags, page: offset, per_page: limit)
   end
 
   def mayor_protips(limit=nil, offset =0)

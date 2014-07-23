@@ -78,16 +78,19 @@ class ProtipsController < ApplicationController
   # end
 
   def user
-    user_params = params.permit(:username, :page, :per_page)
-
-    user = User.find_by_username(params[:username]) unless params[:username].blank?
-    return redirect_to(protips_path) if user.nil?
-    @protips    = protips_for_user(user,user_params)
-    @topics     = [user.username]
-    @topic      = "author:#{user.username}"
-    @topic_user = user
-    @query      = @topic
-    render :topic
+    begin
+      user_params = params.permit(:username, :page, :per_page)
+      byebug
+      user = User.find_by_username!(params[:username])
+      @protips = protips_for_user(user, user_params)
+      @topics = [user.username]
+      @topic = "author:#{user.username}"
+      @topic_user = user
+      @query = @topic
+      render :topic
+    rescue ActiveRecord::NotFound
+      redirect_to(protips_path)
+    end
   end
 
   def team
@@ -123,7 +126,7 @@ class ProtipsController < ApplicationController
     @topics     = @topic = Protip::USER_SCOPE
     section     = me_params[:section]
     query       = "#{section}:#{current_user.username}" if section
-    @protips    = Protip.search(query, [], page: me_params[:page], per_page: me_params[:per_page] || 12)
+    @protips    = Protip.search_by_string(query, [], page: me_params[:page], per_page: me_params[:per_page] || 12)
     @topic_user = nil
   end
 
@@ -340,7 +343,7 @@ class ProtipsController < ApplicationController
     admin_params = params.permit(:page, :per_page)
 
     @query   = "created_automagically:false only_link:false reviewed:false created_at:[#{Time.new(2012, 8, 22).strftime('%Y-%m-%dT%H:%M:%S')} TO *] sort:created_at asc"
-    @protips = Protip.search(@query, [], page: admin_params[:page], per_page: admin_params[:per_page] || 20)
+    @protips = Protip.search_by_string(@query, [], page: admin_params[:page], per_page: admin_params[:per_page] || 20)
 
     render :topic
   end
@@ -388,14 +391,18 @@ class ProtipsController < ApplicationController
 
   private
 
+  # TODO REFACTOR
+  # We should not remove protips from the index even if the user is banned.
   # Return protips for a user
   # If the user is banned, grab protips from their association
   # because the tip will have been removed from the search index.
   #
   # @param [ Hash ] params - Should contain :page and :per_page key/values
-  def protips_for_user(user,params)
-    if user.banned? then user.protips.page(params[:page]).per(params[:per_page])
-    else Protip.search_trending_by_user(user.username, nil, [], params[:page], params[:per_page])
+  def protips_for_user(user, params)
+    if user.banned?
+      user.protips.page(params[:page]).per(params[:per_page])
+    else
+      Protip.search_trending_by_user(user.username, nil, [], params[:page], params[:per_page])
     end
   end
 

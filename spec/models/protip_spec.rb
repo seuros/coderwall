@@ -58,20 +58,20 @@ RSpec.describe Protip, :type => :model do
 
     it 'is searchable by title' do
       protip = Fabricate(:protip, body: 'something to ignore', title: "look at this content #{r = rand(100)}", user: Fabricate(:user))
-      expect(Protip.search('this content').results.first.title).to eq(protip.title)
+      expect(Protip.search_by_string('this content').results.first.title).to eq(protip.title)
     end
 
     it 'should be an and query' do
       protip1 = Fabricate(:protip, body: 'thing one', title: "content #{r = rand(100)}", user: Fabricate(:user))
       protip1 = Fabricate(:protip, body: 'thing two', title: "content #{r = rand(100)}", user: Fabricate(:user))
-      expect(Protip.search('one two').results.size).to eq(0)
+      expect(Protip.search_by_string('one two').results.size).to eq(0)
     end
 
     it 'is not searchable if deleted' do
       protip = Fabricate(:protip, title: "I don't exist'", user: Fabricate(:user))
-      expect(Protip.search("I don't exist").results.first.title).to eq(protip.title)
+      expect(Protip.search_by_string("I don't exist").results.first.title).to eq(protip.title)
       protip.destroy
-      expect(Protip.search("I don't exist").results.count).to eq(0)
+      expect(Protip.search_by_string("I don't exist").results.count).to eq(0)
     end
 
     it 'is reindexed if username or team change' do
@@ -80,19 +80,19 @@ RSpec.describe Protip, :type => :model do
       team.add_user(user)
       protip = Fabricate(:protip, body: 'protip by user on team', title: "content #{rand(100)}", user: user)
       user.reload
-      expect(Protip.search("team.name:first-team").results.first.title).to eq(protip.title)
+      expect(Protip.search_by_string("team.name:first-team").results.first.title).to eq(protip.title)
       team2 = Fabricate(:team, name: "second-team")
       team.remove_user(user)
       user.reload
       team2.add_user(user)
       user.reload
-      expect(Protip.search("team.name:first-team").results.count).to eq(0)
-      expect(Protip.search("team.name:second-team").results.first.title).to eq(protip.title)
-      expect(Protip.search("author:#{user.username}").results.first.title).to eq(protip.title)
+      expect(Protip.search_by_string("team.name:first-team").results.count).to eq(0)
+      expect(Protip.search_by_string("team.name:second-team").results.first.title).to eq(protip.title)
+      expect(Protip.search_by_string("author:#{user.username}").results.first.title).to eq(protip.title)
       user.username = "second-username"
       user.save!
-      expect(Protip.search("author:initial-username").results.count).to eq(0)
-      expect(Protip.search("author:#{user.username}").results.first.title).to eq(protip.title)
+      expect(Protip.search_by_string("author:initial-username").results.count).to eq(0)
+      expect(Protip.search_by_string("author:#{user.username}").results.first.title).to eq(protip.title)
       user.github = "something"
       expect(user.save).not_to receive(:refresh_index)
     end
@@ -180,7 +180,7 @@ RSpec.describe Protip, :type => :model do
     it 'handles link only protips' do
       Protip.rebuild_index
       link_protip = Fabricate(:protip, body: 'http://google.com', user: Fabricate(:user))
-      result = Protip.search(link_protip.title).results.first
+      result = Protip.search_by_string(link_protip.title).results.first
       wrapper = Protip::SearchWrapper.new(result)
       expect(wrapper.only_link?).to eq(link_protip.only_link?)
       expect(wrapper.link).to eq(link_protip.link)
@@ -188,7 +188,7 @@ RSpec.describe Protip, :type => :model do
 
     it 'provides a consistence api to a protip search result' do
       Protip.rebuild_index
-      result = Protip.search(protip.title).results.first
+      result = Protip.search_by_string(protip.title).results.first
       wrapper = Protip::SearchWrapper.new(result)
 
       expect(wrapper.user.username).to eq(protip.user.username)

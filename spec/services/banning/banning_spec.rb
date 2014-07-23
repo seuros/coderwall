@@ -30,9 +30,9 @@ RSpec.describe 'Services::Banning::' do
       protip_2 = Fabricate(:protip,body: "Second", title: "look at this content 2", user: user)
       user.reload
 
-      expect(Protip.search("this content").count).to eq(2)
+      expect(Protip.search_by_string("this content").count).to eq(2)
       Services::Banning::DeindexUserProtips.run(user)
-      expect(Protip.search("this content").count).to eq(0)
+      expect(Protip.search_by_string("this content").count).to eq(0)
     end
   end
 
@@ -45,7 +45,7 @@ RSpec.describe 'Services::Banning::' do
       user      = Fabricate(:user)
       protip_1  = Fabricate(:protip,body: "First", title: "look at this content 1", user: user)
       protip_2  = Fabricate(:protip,body: "Second", title: "look at this content 2", user: user)
-      search    = lambda {Protip.search("this content")}
+      search    = -> {Protip.search_by_string("this content")}
       user.reload
 
       Services::Banning::DeindexUserProtips.run(user)
