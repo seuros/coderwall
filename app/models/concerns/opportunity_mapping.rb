@@ -3,6 +3,10 @@ module OpportunityMapping
 
   included do
     include Elasticsearch::Model
+
+    index_name    "opportunities-#{Rails.env}"
+    document_type 'opportunity'
+
     settings analysis: { analyzer: { comma: { 'type'    => 'pattern',
                                               'pattern' => ',' } } }
     mapping show: { properties: {

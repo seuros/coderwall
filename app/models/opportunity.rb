@@ -282,7 +282,7 @@ class Opportunity < ActiveRecord::Base
   end
 
   def remove_from_index
-    self.class.tire.index.remove self
+    self.__elasticsearch__.delete_document
   end
 end
 
