@@ -1,3 +1,4 @@
+#!/bin/sh
 bundle exec rake tmp:clear
 bundle exec rake log:clear
 bundle exec rake RAILS_ENV=production RAILS_GROUP=assets assets:clean
