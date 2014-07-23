@@ -5,10 +5,10 @@ RSpec.describe ProtipsController, :type => :controller do
 
   def valid_attributes
     {
-        title: "hello world",
-        body: "somethings that's meaningful and nice",
-        topics: ["java", "javascript"],
-        user_id: current_user.id
+      title: "hello world",
+      body: "somethings that's meaningful and nice",
+      topics: ["java", "javascript"],
+      user_id: current_user.id
     }
   end
 
@@ -17,27 +17,20 @@ RSpec.describe ProtipsController, :type => :controller do
   end
 
   describe "GET user" do
-    describe "banned" do
-      it "should assign user @protips for page, despite not being in search index" do
-        current_user.update_attribute(:banned_at,Time.now)
-        expect(current_user.banned?).to eq(true)
-        Protip.rebuild_index
+    context "when the user is found" do
+      it "should @protips with user protips" do
         protip = Protip.create! valid_attributes
-        get :user, {username: current_user.username}, valid_session
+        get :user, { username: current_user.username }, valid_session
         expect(assigns(:protips).first.title).to eq(protip.title)
       end
     end
 
-    describe "not banned" do
-      it "should assign user @protips for page" do
-        Protip.__elasticsearch__.refresh_index!
-        protip = Protip.create! valid_attributes
-        get :user, {username: current_user.username}, valid_session
-        expect(assigns(:protips).results.first.title).to eq(protip.title)
+    context "when the user isn't found" do
+      it "should redirect to protips index" do
+        get :user, { username: 'unknown' }, valid_session
+        expect(response).to redirect_to(protips_path)
       end
-      
     end
-    
   end
 
   # describe "GET topic" do

@@ -77,18 +77,17 @@ class ProtipsController < ApplicationController
   #   @topic_user = nil
   # end
 
+  # TODO @seuros when the user is not found we should find a similar one
   def user
     begin
-      user_params = params.permit(:username, :page, :per_page)
-      byebug
       user = User.find_by_username!(params[:username])
-      @protips = protips_for_user(user, user_params)
+      @protips = user.protips.page(params[:page]).per(params[:per_page])
       @topics = [user.username]
       @topic = "author:#{user.username}"
       @topic_user = user
       @query = @topic
       render :topic
-    rescue ActiveRecord::NotFound
+    rescue Exception
       redirect_to(protips_path)
     end
   end
@@ -390,21 +389,6 @@ class ProtipsController < ApplicationController
   end
 
   private
-
-  # TODO REFACTOR
-  # We should not remove protips from the index even if the user is banned.
-  # Return protips for a user
-  # If the user is banned, grab protips from their association
-  # because the tip will have been removed from the search index.
-  #
-  # @param [ Hash ] params - Should contain :page and :per_page key/values
-  def protips_for_user(user, params)
-    if user.banned?
-      user.protips.page(params[:page]).per(params[:per_page])
-    else
-      Protip.search_trending_by_user(user.username, nil, [], params[:page], params[:per_page])
-    end
-  end
 
   def expand_query(query_string)
     scopes = []
