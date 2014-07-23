@@ -282,7 +282,8 @@ class Opportunity < ActiveRecord::Base
   end
 
   def remove_from_index
-    self.__elasticsearch__.delete_document
+    # TODO remove from index with state machine
+    # self.__elasticsearch__.delete_document
   end
 end
 
