@@ -140,13 +140,13 @@ class Protip < ActiveRecord::Base
       tag_ids = process_tags_for_search(tags)
       tag_ids = [0] if !tags.blank? and tag_ids.blank?
 
-      Protip.tire.index.refresh if Rails.env.test?
+      Protip.__elasticsearch__.refresh_index! if Rails.env.test?
       filters = []
       filters << {term: {upvoters: bookmarked_by}} unless bookmarked_by.nil?
       filters << {term: {'user.user_id' => author}} unless author.nil?
       Rails.logger.debug "SEARCH: query=#{query}, tags=#{tags}, team=#{team}, author=#{author}, bookmarked_by=#{bookmarked_by}, execution=#{execution}, sorts=#{sorts} from query-string=#{query_string}, #{options.inspect}"  if ENV['DEBUG']
       begin
-        tire.search(options) do
+        Protip.search(options) do
           query { string query, default_operator: 'AND', use_dis_max: true } unless query.blank?
           filter :terms, tag_ids: tag_ids, execution: execution unless tag_ids.blank?
           filter :term, teams: team unless team.nil?
@@ -160,7 +160,7 @@ class Protip < ActiveRecord::Base
           # sort { by [sorts] }
           #sort { by [{:upvotes => 'desc' }] }
         end
-      rescue Tire::Search::SearchRequestFailed => e
+      rescue Exception => e
         SearchResultsWrapper.new(nil, "Looks like our search servers are out to lunch. Try again soon.")
       end
     end

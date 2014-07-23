@@ -3,7 +3,7 @@ module SearchModule
     def rebuild_index(name = nil)
       raise 'Unable to rebuild search index in production because it is disabled by Bonsai' if Rails.env.staging? || Rails.env.production?
       klass = self
-      Tire.index name || self.index_name || self.class.name do
+      self.index_name || self.class.name do
         delete
         create
         klass.find_in_batches { |batch| import batch }

@@ -1,7 +1,7 @@
 # encoding: utf-8
 class Network < ActiveRecord::Base
-  include Tire::Model::Search
-
+  include Elasticsearch::Model
+  
   settings analysis: { analyzer: { exact_term_search: { "type"      => "keyword",
                                                         "tokenizer" => "keyword" } } }
   mapping show: { properties: {

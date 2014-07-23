@@ -5,6 +5,6 @@ class ProtipIndexerWorker
 
   def perform(protip_id)
     protip = Protip.find(protip_id)
-    Protip.index.store(protip) unless protip.user.banned?
+    protip.__elasticsearch__.index_document unless protip.user.banned?
   end
 end

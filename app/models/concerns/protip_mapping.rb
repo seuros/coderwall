@@ -3,6 +3,10 @@ module ProtipMapping
 
   included do
     include Elasticsearch::Model
+
+    index_name    "protips-#{Rails.env}"
+    document_type 'protip'
+    
     settings analysis: {
         analyzer: {
             comma: {"type" => "pattern",
