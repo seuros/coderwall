@@ -53,5 +53,6 @@ ENABLE_TRACKING = !ENV['MIXPANEL_TOKEN'].blank?
 ActionView::Base.field_error_proc = Proc.new { |html_tag, instance|
   %(<span class="field_with_errors">#{html_tag}</span>).html_safe
 }
+require 'typhoeus/adapters/faraday'
 
 #require 'font_assets/railtie' # => loads font middleware so cloudfront can serve fonts that render in Firefox

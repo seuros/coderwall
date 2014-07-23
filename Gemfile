@@ -20,25 +20,27 @@ gem 'backbone-on-rails'
 gem 'handlebars-source'
 gem 'ember-rails', github: 'emberjs/ember-rails'
 
+
 # Load environment variables first
 gem 'dotenv-rails', groups: [:development, :test]
 
+# Preparing for rails 4 migration
+gem 'strong_parameters'
 
 # Attachements
 gem 'carrierwave'
-gem 'carrierwave_backgrounder' #background processing of images
-gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
+gem 'carrierwave_backgrounder', '0.0.8' #background processing of images
+gem 'carrierwave-mongoid',  require: 'carrierwave/mongoid'
 
 # HTML
-gem 'haml'
-gem 'hamlbars' #haml support for handlebars/ember.js
+gem 'haml', '3.1.7'
+gem 'hamlbars', '1.1.0' #haml support for handlebars/ember.js
 gem 'slim-rails'
 
 # Postgres
 gem 'pg'
 
-# Scheduled tasks
-gem 'clockwork'
+
 
 # Authentication
 gem 'omniauth', '~> 1.1.0'
@@ -136,6 +138,7 @@ end
 # /DROP BEFORE RAILS 4
 
 # ElasticSearch client
+gem 'elasticsearch-rails'
 gem 'elasticsearch-model'
 
 group :development do
@@ -168,7 +171,7 @@ group :test do
   gem "codeclimate-test-reporter", require: false
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'fuubar', '2.0.0.rc1'
+  gem 'fuubar' , '2.0.0.rc1'
   gem 'simplecov'
   gem 'timecop'
   gem 'vcr'

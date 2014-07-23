@@ -3,6 +3,8 @@ module TeamMapping
 
   included do
     include Elasticsearch::Model
+    index_name    "teams-#{Rails.env}"
+    document_type 'team'
     mapping team: {
         properties: {
             id:                 { type: 'string', index: 'not_analyzed' },

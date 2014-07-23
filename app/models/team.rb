@@ -815,12 +815,7 @@ class Team
   end
 
   def reindex_search
-    if Rails.env.development? or Rails.env.test? or self.destroyed?
-      # self.tire.update_index
-      self.__elasticsearch__.update_document
-    else
       IndexTeamJob.perform_async(id)
-    end
   end
 
   def remove_dependencies

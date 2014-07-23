@@ -5,6 +5,6 @@ class IndexTeamJob
 
   def perform(team_id)
     team = Team.find(team_id)
-    team.tire.update_index
+    team.__elasticsearch__.update_document
   end
 end

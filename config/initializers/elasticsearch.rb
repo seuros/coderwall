@@ -1,0 +1,1 @@
+Elasticsearch::Client.new host: ENV['ELASTICSEARCH_URL']
