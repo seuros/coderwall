@@ -6,7 +6,7 @@ module ProtipMapping
 
     index_name    "protips-#{Rails.env}"
     document_type 'protip'
-    
+
     settings analysis: {
         analyzer: {
             comma: {"type" => "pattern",
@@ -65,5 +65,40 @@ module ProtipMapping
             avatar: {type: 'string', index: 'not_analyzed'},
             about: {type: 'string', index: 'not_analyzed'},
         }}}}
+
+    def to_indexed_json
+      to_public_hash.deep_merge(
+        {
+          trending_score:        trending_score,
+          popular_score:         value_score,
+          score:                 score,
+          upvoters:              upvoters_ids,
+          comments_count:        comments.count,
+          views_count:           total_views,
+          comments:              comments.map do |comment|
+            {
+              title: comment.title,
+              body:  comment.comment,
+              likes: comment.likes_cache
+            }
+          end,
+          networks:              networks.map(&:name).map(&:downcase).join(","),
+          best_stat:             Hash[*[:name, :value].zip(best_stat.to_a).flatten],
+          team:                  user && user.team && {
+            name:         user.team.name,
+            slug:         user.team.slug,
+            avatar:       user.team.avatar_url,
+            profile_path: Rails.application.routes.url_helpers.teamname_path(slug: user.team.try(:slug)),
+            hiring:       user.team.hiring?
+          },
+          only_link:             only_link?,
+          user:                  user && { user_id: user.id },
+          flagged:               flagged?,
+          created_automagically: created_automagically?,
+          reviewed:              viewed_by_admin?,
+          tag_ids:               topic_ids
+        }
+      ).to_json(methods: [:to_param])
+    end
   end
 end

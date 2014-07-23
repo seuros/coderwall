@@ -53,7 +53,7 @@ RSpec.describe Protip, :type => :model do
 
   describe 'searching protip', search: true do
     before(:each) do
-      Protip.rebuild_index
+      Protip.__elasticsearch__.rebuild_index
     end
 
     it 'is searchable by title' do
