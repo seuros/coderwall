@@ -87,7 +87,7 @@ class ProtipsController < ApplicationController
       @topic_user = user
       @query = @topic
       render :topic
-    rescue Exception
+    rescue ActiveRecord::RecordNotFound
       redirect_to(protips_path)
     end
   end

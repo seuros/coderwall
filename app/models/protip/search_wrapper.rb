@@ -6,7 +6,8 @@ class Protip::SearchWrapper
   end
 
   def username
-    item[:user][:username]
+    byebug
+    @item[:user][:username]
   end
 
   def profile_url
@@ -14,7 +15,7 @@ class Protip::SearchWrapper
   end
 
   def avatar
-    item[:user][:avatar]
+    @item[:user][:avatar]
   end
 
   def already_voted?(current_user, tracking, ip_address)
@@ -31,7 +32,7 @@ class Protip::SearchWrapper
   end
 
   def upvotes
-    item[:upvotes]
+    @item[:upvotes]
   end
 
   def topics
@@ -43,11 +44,11 @@ class Protip::SearchWrapper
   end
 
   def link
-    item[:link]
+    @item[:link]
   end
 
   def title
-    item[:title]
+    @item[:title]
   end
 
   def to_s

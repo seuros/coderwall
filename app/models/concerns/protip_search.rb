@@ -145,34 +145,38 @@ module ProtipSearch
 
     #TODO Refactor
     def search_by_string(query_string, tags =[])
-      query, team, author, bookmarked_by, execution, sorts= preprocess_query(query_string)
-      tags = [] if tags.nil?
-      tags = preprocess_tags(tags)
-      tag_ids = process_tags_for_search(tags)
-      tag_ids = [0] if !tags.blank? and tag_ids.blank?
-      filters = []
-      filters << {term: {upvoters: bookmarked_by}} unless bookmarked_by.nil?
-      filters << {term: {'user.user_id' => author}} unless author.nil?
-      begin
-        byebug
-        Protip.__elasticsearch__.search_by_string do
-          query { string query, default_operator: 'AND', use_dis_max: true } unless query.blank?
-          filter :terms, tag_ids: tag_ids, execution: execution unless tag_ids.blank?
-          filter :term, teams: team unless team.nil?
-          if filters.size >= 2
-            filter :or, *filters
-          else
-            filters.each do |fltr|
-              filter *fltr.first
-            end
-          end
+      # query, team, author, bookmarked_by, execution, sorts= preprocess_query(query_string)
+      # tags = [] if tags.nil?
+      # tags = preprocess_tags(tags)
+      # tag_ids = process_tags_for_search(tags)
+      # tag_ids = [0] if !tags.blank? and tag_ids.blank?
+      # filters = []
+      # filters << {term: {upvoters: bookmarked_by}} unless bookmarked_by.nil?
+      # filters << {term: {'user.user_id' => author}} unless author.nil?
+        Protip.__elasticsearch__.search(
+            {
+                query: {
+                    query_string: {
+                        query: query_string,
+                        default_operator: 'AND',
+                        use_dis_max: true
+                    }
+                }
+            }
+        )
+          # query { string query, default_operator: 'AND', use_dis_max: true } unless query.blank?
+          # filter :terms, tag_ids: tag_ids, execution: execution unless tag_ids.blank?
+          # filter :term, teams: team unless team.nil?
+          # if filters.size >= 2
+          #   filter :or, *filters
+          # else
+          #   filters.each do |fltr|
+          #     filter *fltr.first
+          #   end
+          # end
           # sort { by [sorts] }
           #sort { by [{:upvotes => 'desc' }] }
-        end
-      rescue Exception => e
-        byebug
-        SearchResultsWrapper.new(nil, "Looks like our search servers are out to lunch. Try again soon.")
-      end
+        # end
     end
 
     def popular
