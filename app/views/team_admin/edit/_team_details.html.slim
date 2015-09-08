@@ -1,0 +1,70 @@
+.card-panel#team-details
+  a.button_to_toggle href="javascript:;"
+    span.btn-floating.right
+      i.material-icons swap_vert
+    h5 Team details
+  .divider
+  .content_to_toggle
+    = form_for @team,url: team_admin_path(:section=>'team-details'),method: :put, html: {id: 'edit_team_details', multipart: true} do |f|
+      .row
+        .col.s12
+          =render "shared/error_messages", target: @team
+      .row
+        .col.s6.input-field
+          = f.text_field :name
+          = f.label :name
+        .col.s6.input-field
+          = f.text_field :branding
+          = f.label :branding,'Team color in hex (e.g. #343131)'
+      .row
+        .col.s6.input-field
+          = f.text_area :about, class: 'materialize-textarea'
+          = f.label :about
+        .col.s6.file-field.input-field
+          .row
+            .col.s5
+              = image_tag(@team.avatar_url, style: "max-width: 200px;") if @team.avatar_url.present?
+            .col.s7
+              .btn.black
+                span =" #{@team.avatar_url.present? ? 'Use other avatar' : 'Upload your avatar'}"
+                = f.file_field :avatar
+              input.file-path.validate type="text" /
+
+      .row
+        .col.s4.input-field
+          = f.check_box :premium
+          = f.label :premium
+        .col.s4.input-field
+          = f.check_box :valid_jobs
+          = f.label :valid_jobs
+        .col.s4.input-field
+          = f.check_box :hide_from_featured
+          = f.label :hide_from_featured
+
+
+      .row
+        .col.s6.input-field
+          = f.text_field :preview_code
+          = f.label :preview_code
+        .col.s6.input-field
+          = f.text_field :highlight_tags
+          = f.label :highlight_tags, 'Team Highlights (comma seperated)'
+
+      .row
+        .col.s6.input-field
+          = f.text_field :website
+          = f.label :website
+        .col.s6.input-field
+          = f.text_field :github
+          = f.label :github,'https://github.com/'
+      .row
+        .col.s6.input-field
+          = f.text_field :facebook
+          = f.label :facebook,'https://www.facebook.com/'
+        .col.s6.input-field
+          = f.text_field :twitter
+          = f.label :twitter,'Twitter Handle'
+      .row
+        .col.s6.input-field
+        .col.s6.input-field
+          = f.submit :submit, class: 'btn right'

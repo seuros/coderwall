@@ -1,0 +1,12 @@
+.card
+  .card-image
+  = users_image_tag(member, :title => member.display_name)
+
+  .card-content =link_to member.display_name, profile_path(member.username)
+  .card-action
+    -if member.state== 'pending'
+      =link_to 'Approve', approve_join_team_members_path(team_id: team, member_id: member.id), method: :post,remote: true, :confirm => 'Are you sure?', :class => 'action accept padding_5 green white-text hoverable'
+
+      =link_to 'Deny', deny_join_team_members_path(team_id: team, member_id: member.id), method: :post,remote: true, :confirm => 'Are you sure?', :class => 'action accept padding_5 red white-text hoverable'
+    -else
+      =link_to 'Reapprove', approve_join_team_members_path(team_id: team, member_id: member.id), method: :post,remote: true, :confirm => 'Are you sure?', :class => 'action accept padding_5 orange white-text hoverable'

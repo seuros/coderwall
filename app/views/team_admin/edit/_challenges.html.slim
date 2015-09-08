@@ -1,0 +1,22 @@
+.card-panel#challenges
+  a.button_to_toggle href="javascript:;"
+    span.btn-floating.right
+      i.material-icons swap_vert
+    h5 Our challenge
+  .divider
+  .content_to_toggle
+    = form_for @team, url: team_admin_path(:section=>'challenges'), method: :put, html: {id: 'edit_team_challenge', multipart: true} do |f|
+      .row
+        .col.s12
+          =render "shared/error_messages", target: @team
+      .row
+        .col.s6.input-field
+          = f.text_area :our_challenge , class: 'materialize-textarea'
+          = f.label :our_challenge, 'What is the biggest challenge the team is working on?'
+        .col.s6.input-field
+          = f.text_area :your_impact , class: 'materialize-textarea'
+          = f.label :your_impact, 'What impact would the individual have on the team or product?'
+      .row
+        .col.s6.input-field
+        .col.s6.input-field
+          = f.submit :submit, class: 'btn right'

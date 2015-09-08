@@ -1,0 +1,9 @@
+-if team.has_team_blog?
+  .card-panel#team-blog style="border-top: solid 8px #{team.branding_hex_color}"
+    h5 = "From the #{team.name} blog"
+    -cache ['teams', 'blogs', team], :expires_in => 1.day do
+      -if team.blog_posts.any?
+        ul.collection
+          -team.blog_posts.first(3).each do |entry|
+            =render 'teams/show/team_blog_item', team: team, entry: entry
+

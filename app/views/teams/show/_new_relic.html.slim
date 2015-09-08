@@ -1,0 +1,11 @@
+- if ENV['NEW_RELIC_PROMOTION'] && team.slug == 'new-relic'
+  .row.grey
+    .col.s12.m8.offset-m2.relic-bar
+      .card.inside
+        .card-image
+          =image_tag("relic-tee.png")
+        .card-content
+          .card-title.grey-text.text-darken-4  Level up your wardrobe with this tee!
+          p Coderwall helps you level up your skills and New Relic helps you level up your app. Now when you try out New Relic for free, they'll send you this Coderwall tee.
+        .card-action
+          =link_to 'Get a free Coderwall tee','http://newrelic.com/sp/coderwall?utm_source=CWAL&utm_medium=promotion&utm_content=coderwall&utm_campaign=coderwall&mpc=PM-CWAL-web-Signup-100-coderwall-shirtpromo', class:'test-drive track white-text btn', 'data-action' => 'go get tee', :target => :new

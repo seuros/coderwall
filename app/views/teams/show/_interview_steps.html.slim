@@ -1,0 +1,10 @@
+-if team.has_interview_steps?
+  .card-panel#interview-steps.center-align.bg_transparent style="border-top: solid 8px #{team.branding_hex_color}"
+    h4 style="color: #{team.branding_hex_color}"
+      u="Interviewing at #{team.name}"
+    .commentArea
+      -interview_steps_or_default(team).each_with_index do |step, index|
+        .bubbledLeft
+          b=(index + 1)
+          =step
+      .clearfix

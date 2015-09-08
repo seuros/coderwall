@@ -1,0 +1,11 @@
+#page
+  #teams-premium-wrap.container
+    =render 'teams/show/team-header',team: @team
+    =render 'teams/show/team_details',team: @team
+    .card-panel style="border-top: solid 8px #{@team.branding_hex_color}"
+      h5="Latest Protips from the #{@team.name} Team"
+      ul.collection
+        -@team_protips.each do |protip|
+          =render 'teams/show/protip', protip: protip
+
+      = paginate @team_protips

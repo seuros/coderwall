@@ -1,0 +1,33 @@
+-content_for :javascript do
+  =javascript_include_tag 'http://s3.amazonaws.com/cdn.getchute.com/media-chooser.min.js'
+
+-content_for :page_title do
+  ="coderwall : edit team #{@team.name}"
+=content_for :body_id,"team-settings"
+-content_for :mixpanel do
+  =record_view_event('edit team page')
+
+#page
+  #teams-premium-wrap.container
+
+    =render 'team_admin/edit/team-header', team: @team
+
+    -unless @team.has_specified_enough_info?
+      .section.info-post.red Your team profile is incomplete. You need to fill out at least 6 sections before you can post a job
+
+    =render 'team_admin/edit/admin_menu', team: @team
+    .divider
+    =render 'team_admin/edit/team_members',team: @team
+    =render 'team_admin/edit/team_details',team: @team
+    =render 'team_admin/edit/big_headline',team: @team
+    =render 'team_admin/edit/big_quote',team: @team
+    =render 'team_admin/edit/video',team: @team
+    =render 'team_admin/edit/challenges',team: @team
+    =render 'team_admin/edit/favourite_benefits',team: @team
+    =render 'team_admin/edit/organization_style',team: @team
+    =render 'team_admin/edit/office_images',team: @team
+    =render 'team_admin/edit/stack',team: @team
+    =render 'team_admin/edit/why_work',team: @team
+    =render 'team_admin/edit/interview_steps',team: @team
+    =render 'team_admin/edit/team_blog',team: @team
+    =render 'team_admin/edit/locations',team: @team

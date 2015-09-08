@@ -19,6 +19,7 @@ source 'https://rubygems.org' do
 # Attachements
   gem 'carrierwave'
   gem 'carrierwave_backgrounder' #background processing of images
+  gem 'remotipart'
 
 # HTML
   gem 'haml'
@@ -103,6 +104,7 @@ source 'https://rubygems.org' do
   gem 'rakismet'
   gem 'sanitize'
   gem 'simple_form'
+  gem 'nested_form'
   gem 'sitemap_generator'
   gem 'tweet-button'
   gem 'local_time'

@@ -1,0 +1,48 @@
+- if ENV['ENABLE_TWITTER_CARDS']
+  - meta twitter: {card: "summary"}
+  - meta twitter: {site: "@coderwall"}
+  - meta twitter: {image: @team.avatar_url}
+  - meta twitter: {creator: {id: @team.twitter}}
+
+  - meta twitter: {title: sanitize(@team.name)}
+  - meta twitter: {url: teamname_path(@team.slug)}
+  - meta twitter: {description: @team.about}
+
+-content_for :javascript do
+  =javascript_include_tag 'team_members_carousel'
+  =javascript_include_tag 'https://maps.google.com/maps/api/js?sensor=true'
+  =javascript_include_tag 'gmaps.geocoder'
+-content_for :page_title,"Team #{@team.name} : coderwall.com"
+=content_for :head do
+  link rel='canonical' href=friendly_team_path(@team)
+=content_for :body_id do
+  = admin_of_team? ? "prem-team" : "signed-out"
+-content_for :mixpanel do
+  = record_event('viewed team', :name => @team.name, 'own team' => @team.has_member?(current_user), :premium => @team.premium?)
+
+#page
+  #teams-premium-wrap.container
+    /FIXME remove this link
+    =link_to 'Edit', edit_team_admin_path(@team), class: 'btn' if admin_of_team?
+
+    =render 'teams/show/new_relic',team: @team
+    =render 'teams/show/team-header',team: @team
+    =render 'teams/show/team_details',team: @team
+    =render 'teams/show/jobs',team: @team
+    =render 'teams/show/team_members',team: @team
+    -cache ['v1', 'team-top-sections', @team] do
+      =render 'teams/show/big_headline',team: @team
+      =render 'teams/show/big_quote',team: @team
+      =render 'teams/show/video',team: @team
+      =render 'teams/show/challenges',team: @team
+      =render 'teams/show/favourite_benefits',team: @team
+      =render 'teams/show/organization_style',team: @team
+      =render 'teams/show/office_images',team: @team
+      =render 'teams/show/stack',team: @team
+      =render 'teams/show/why_work',team: @team
+      =render 'teams/show/interview_steps',team: @team
+      =render 'teams/show/team_blog',team: @team
+      =render 'teams/show/locations',team: @team
+      =render 'teams/show/protips',team: @team,team_protips: @team_protips,team_protips_count: @team_protips_count
+    =render 'teams/show/footer',team: @team
+#dimmer

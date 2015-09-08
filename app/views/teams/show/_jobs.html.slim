@@ -1,0 +1,3 @@
+-if team.has_open_positions?
+  .card-panel.join-us-banner.info-post
+    =="#{hiring_tagline_or_default(team)} #{link_to('View jobs', teamname_jobs_path(team.slug), :class => 'view-jobs')}"

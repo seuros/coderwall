@@ -1,0 +1,18 @@
+-if team.has_why_work?
+  .card-panel#why-work.black.white-text
+    h4="Why work for #{team.name}?"
+    .row
+      .col.s8
+        dl.faq
+          dt=reason_name_1_or_default(team)
+          dd=reason_description_1_or_default(team)
+
+          -unless team.reason_description_2.blank?
+            dt=team.reason_name_2
+            dd=team.reason_description_2
+
+          -unless team.reason_description_3.blank?
+            dt=team.reason_name_3
+            dd=team.reason_description_3
+      .col.s4
+        =image_tag(why_work_image_or_default(team), class: 'right')

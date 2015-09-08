@@ -1,0 +1,80 @@
+#member-settings{
+  ul.linked-accounts{
+    text-align: center;
+    li{
+      display: inline-block;
+      padding: 20px;
+      height: 200px;
+      border: 1px solid #ddd;
+      vertical-align: top;
+      margin-bottom: 3px;
+      i.fa-github-square{
+      }
+      i.fa-twitter-square{
+        color: #03C1E6;
+      }
+      i.fa-linkedin-square{
+        color: #1278AB;
+      }
+    }
+  }
+  .special-setting{
+    div{
+      display: inline-block;
+      margin-right: 10px;
+      vertical-align: top;
+    }
+  }
+  .setting{
+    padding: 20px 0;
+    border-bottom: 2px dotted #e6e6e6;
+    margin-bottom: 15px;
+  }
+  .collection {
+    .collection-item.avatar {
+      .title {
+        background-color: #FBF9F9;
+        display: block;
+      }
+    }
+  }
+  .collapsible {
+    >li.active {
+      box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15) !important;
+    }
+    .collapsible-header i{
+      margin-right: 15px;
+      img{
+        height: 43px;
+      }
+    }
+    form{
+      padding: 20px;
+    }
+  }
+  ul.tabs{
+  }
+  .tab_content{
+    margin-top: 10px;
+  }
+  ul.email_list{
+    color: #505050;
+    font-size: 13px;
+    li{
+      i {
+        font-size: 13px;
+      }
+    }
+  }
+  .profile_card{
+    .card-image {
+      min-height: 300px;
+    }
+    .card-title {
+      color: #000;
+      font-size: 14px;
+      .avatar{
+      }
+    }
+  }
+}

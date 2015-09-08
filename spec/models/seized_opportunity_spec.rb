@@ -7,6 +7,8 @@
 #  user_id        :integer
 #  created_at     :datetime
 #  updated_at     :datetime
+#  cover_letter   :text
+#  resume         :string(255)
 #
 
 require 'spec_helper'

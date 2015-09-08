@@ -5,6 +5,8 @@ class TeamsController < ApplicationController
   respond_to :js, :only => [:search, :create, :approve_join, :deny_join]
   respond_to :json, :only => [:search]
 
+  layout 'coderwallv2'   , :only => [:show,:protips]
+
   def index
     current_user.seen(:teams) if signed_in?
     #@featured_teams = Rails.cache.fetch(Team::FEATURED_TEAMS_CACHE_KEY, expires_in: 4.hours) do
@@ -20,35 +22,27 @@ class TeamsController < ApplicationController
   end
 
   def show
-    #FIXME
-    show_params = params.permit(:job_id, :refresh, :callback, :id, :slug)
+    show_params = params.permit(:id, :slug)
     @team ||= team_from_params(slug: show_params[:slug], id: show_params[:id])
-    return render_404 unless @team
+    return render_404_v2 unless @team
 
-    respond_to do |format|
-      format.html do
+    viewing_user.track_team_view!(@team) if viewing_user
+    @team.viewed_by(viewing_user || session_id) unless is_admin?
 
-        @team_protips = @team.trending_protips(4)
-        @query = "team:#{@team.slug}"
-        viewing_user.track_team_view!(@team) if viewing_user
-        @team.viewed_by(viewing_user || session_id) unless is_admin?
-        @job = show_params[:job_id].nil? ? @team.jobs.sample : Opportunity.find_by_public_id(show_params[:job_id])
+    team_protips = TeamProtips.new(@team)
+    @team_protips = team_protips.protips.page.per(3)
+    @team_protips_count = team_protips.protips.count()
 
-        @other_jobs = @team.jobs.reject { |job| job.id == @job.id } unless @job.nil?
-        @job_page = !@job.nil?
-        return render(:premium) if show_premium_page?
-      end
+  end
 
-      format.json do
-        options = { :expires_in => 5.minutes }
-        options[:force] = true if !show_params[:refresh].blank?
-        response = Rails.cache.fetch(['v1', 'team', show_params[:id], :json], options) do
-            @team.public_json
-        end
-        response = "#{show_params[:callback]}({\"data\":#{response}})" if show_params[:callback]
-        render :json => response
-      end
-    end
+  def protips
+    @team = Team.find_by_slug(params[:slug].downcase)
+
+    return render_404_v2 unless @team
+
+    team_protips = TeamProtips.new(@team)
+
+    @team_protips = team_protips.protips.page params[:page]
   end
 
   def new
@@ -79,49 +73,6 @@ class TeamsController < ApplicationController
     else
       message = @team.errors.full_messages.join("\n")
       flash[:error] = "There was an error in creating a team #{@team.name}\n#{message}"
-    end
-  end
-
-  #def team_to_regex(team)
-  #team.name.gsub(/ \-\./, '.*')
-  #end
-
-  def edit
-    @team = Team.find_by_slug(params[:slug])
-    return head(:forbidden) unless current_user.belongs_to_team?(@team) || current_user.admin?
-    @edit_mode = true
-    show
-  end
-
-  def update
-    update_params = params.permit(:id, :_id, :job_id, :slug)
-    update_team_params = params.require(:team).permit!
-    @section_id = (params.permit(:section_id) || {})[:section_id]
-
-    @team = Team.find(update_params[:id])
-    return head(:forbidden) unless current_user.belongs_to_team?(@team) || current_user.admin?
-    update_team_params.delete(:id)
-    update_team_params.delete(:_id)
-    @team.update_attributes(update_team_params)
-    @edit_mode = true
-    # @team.edited_by(current_user)
-    @job = if update_params[:job_id].nil?
-             @team.jobs.sample
-           else
-             Opportunity.find_by_public_id(update_params[:job_id])
-           end
-
-    if @team.save
-      respond_with do |format|
-        format.html { redirect_to(teamname_url(:slug => @team.slug)) }
-        format.js
-      end
-    else
-      respond_with do |format|
-        format.html { render(:action => :edit) }
-        #FIXME
-        format.js { render(json: {errors: @team.errors.full_messages} , status: :unprocessable_entity) }
-      end
     end
   end
 
@@ -225,26 +176,6 @@ class TeamsController < ApplicationController
       @team.save
       redirect_to teamname_path(:slug => @team.slug), :notice => "We have submitted your join request to the team admin to approve"
     end
-  end
-
-  def approve_join
-    approve_join_params = params.permit(:id, :user_id)
-
-    @team = Team.find(approve_join_params[:id])
-    return head(:forbidden) unless @team && @team.admin?(current_user)
-    @team.approve_join_request(User.find(approve_join_params[:user_id].to_i))
-    @team.save
-    render :join_response
-  end
-
-  def deny_join
-    deny_join_params = params.permit(:id, :user_id)
-
-    @team = Team.find(deny_join_params[:id])
-    return head(:forbidden) unless @team && @team.admin?(current_user)
-    @team.deny_join_request(User.find(deny_join_params[:user_id].to_i))
-    @team.save
-    render :join_response
   end
 
   protected

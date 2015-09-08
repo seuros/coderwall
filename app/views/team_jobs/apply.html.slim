@@ -1,0 +1,42 @@
+#page
+  .container
+    #teams-premium-wrap
+      =render 'teams/show/team-header', team: @team
+      =render 'teams/show/team_details', team: @team
+    #team_jobs
+      .card-panel style="border-top: solid 8px #{@team.branding_hex_color}"
+        .job-header
+          h5
+            ="Apply to : "
+            =link_to  @job.title,teamname_job_path(slug: @team.slug, job_id: @job.public_id)
+            i="(#{@job.opportunity_type})"
+
+        .clearfix
+        =form_for(@seized_opportunity,url: teamname_job_apply_path(slug: @team.slug, job_id: @job.public_id), html: { multipart: true } ) do |f|
+          .row
+            .col.s8
+              .input-field
+                i.material-icons.prefix mode_edit
+                =f.text_area :cover_letter,id:'cover_letter',class:'materialize-textarea'
+                =f.label :cover_letter, 'cover_letter...'
+
+            .col.s4
+              - if current_user.has_resume?
+                p
+                  =link_to current_user.resume_url, class: ''
+                    i.material-icons.large description
+                    br
+                    |Your current resume
+              -else
+                p.info-post.red
+                  i.material-icons info_outline
+                  |You must upload your resume to submit for this job
+
+              .file-field.input-field
+                .btn.black
+                  span =" #{current_user.has_resume?? 'Use other resume':'Upload your resume'}"
+                  = f.file_field :resume
+                input.file-path.validate type="text" /
+
+              .input-field
+                =f.submit :submit, class:"btn-large"

@@ -1,6 +1,6 @@
 .row
   .col.s12.m6
-    .card.profile_card.no_shadow
+    .card.profile_card
       .card-image
         =image_tag(user.banner.url)
         span.card-title
@@ -22,11 +22,11 @@
         =show_user_attribute(user.about,'Bio',{type: :paragraph})
 
   .col.s12.m6
-    .card.no_shadow
-      .card-content
-        .row
-          .col.s12
-            h5.light Email
+    .card-panel
+      .row
+        .col.s12
+          fieldset
+            legend Email
             =show_user_attribute(user.email,'Email Address')
             ul.email_list
               li
@@ -45,8 +45,9 @@
                 i class="material-icons" ="#{ user.receive_weekly_digest ? 'done' : 'stop'}"
                 |Receive weekly brief
 
-          .col.s12
-            h5.light Social links
+        .col.s12
+          fieldset
+            legend Social links
             =show_user_attribute(user.github,'Github')
             =show_user_attribute(user.twitter,'Twitter')
             =show_user_attribute(user.linkedin_public_url,'LinkedIn')
@@ -60,5 +61,5 @@
 
 .row
   .col.s12
-    -if @user.membership.present?
+    -if user.membership.present?
       =render 'users/edit/summary_teams', user: user

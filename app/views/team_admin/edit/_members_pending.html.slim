@@ -1,0 +1,11 @@
+- unless team.members.pending.empty?
+
+  ul.collection
+    .row
+    - team.members.to_approuve.order(:state).reverse.each do |member|
+      .col.s3
+        =render 'team_admin/edit/members_item',member: member,team: team
+
+
+-else
+  p.padding_10.red.white-text  No members pending

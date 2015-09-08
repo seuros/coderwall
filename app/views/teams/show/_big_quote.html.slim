@@ -1,0 +1,5 @@
+-if team.has_big_quote?
+  .card#big-quote
+    blockquote.z-depth-2
+      p=big_quote_or_default(team)
+    =image_tag(big_image_or_default(team), class:'img_in_shadow full_width')

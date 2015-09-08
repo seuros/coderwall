@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150809160133) do
+ActiveRecord::Schema.define(:version => 20150831152719) do
 
   add_extension "citext"
   add_extension "hstore"
@@ -244,6 +244,8 @@ ActiveRecord::Schema.define(:version => 20150809160133) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "cover_letter"
+    t.string   "resume"
   end
 
   create_table "sent_mails", :force => true do |t|

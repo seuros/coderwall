@@ -1,0 +1,38 @@
+.card-panel#favourite-benefits
+  a.button_to_toggle href="javascript:;"
+    span.btn-floating.right
+      i.material-icons swap_vert
+    h5 Our favourite benefits
+  .divider
+  .content_to_toggle
+    = form_for @team, url: team_admin_path(:section=>'favourite-benefits'), method: :put, html: {id: 'edit_team_benefits', multipart: true} do |f|
+      .row
+        .col.s12
+          =render "shared/error_messages", target: @team
+      .row
+        .col.s4.input-field
+          = f.text_area :benefit_name_1 , class: 'materialize-textarea'
+          = f.label :benefit_name_1
+        .col.s8.input-field
+          = f.text_area :benefit_description_1 , class: 'materialize-textarea'
+          = f.label :benefit_description_1
+      .divider
+      .row
+        .col.s4.input-field
+          = f.text_area :benefit_name_2 , class: 'materialize-textarea'
+          = f.label :benefit_name_2
+        .col.s8.input-field
+          = f.text_area :benefit_description_2 , class: 'materialize-textarea'
+          = f.label :benefit_description_2
+      .divider
+      .row
+        .col.s4.input-field
+          = f.text_area :benefit_name_3 , class: 'materialize-textarea'
+          = f.label :benefit_name_3
+        .col.s8.input-field
+          = f.text_area :benefit_description_3 , class: 'materialize-textarea'
+          = f.label :benefit_description_3
+      .row
+        .col.s6.input-field
+        .col.s6.input-field
+          = f.submit :submit, class: 'btn right'

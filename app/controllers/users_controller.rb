@@ -115,15 +115,10 @@ class UsersController < ApplicationController
     else
       flash.now[:notice] = "There were issues updating your profile."
     end
-
     respond_to do |format|
       format.js
       format.html do
-        if admin_of_premium_team?
-          redirect_to(teamname_url(slug: @user.team.slug, full: :preview))
-        else
-          redirect_to(edit_user_url(@user))
-        end
+        redirect_to(edit_user_url(@user, :anchor => params[:section]))
       end
     end
 
@@ -136,7 +131,7 @@ class UsersController < ApplicationController
     else
       flash.now[:notice] = "There were issues updating your profile."
     end
-    redirect_to(edit_user_url(membership.user))
+    redirect_to(edit_user_url(membership.user, :anchor => params[:section]))
   end
 
   def autocomplete
@@ -245,8 +240,10 @@ class UsersController < ApplicationController
     params.require(:user).permit(:about,
                                  :avatar,
                                  :avatar_cache,
+                                 :remove_avatar,
                                  :banner,
                                  :banner_cache,
+                                 :remove_banner,
                                  :bitbucket,
                                  :blog,
                                  :codeplex,

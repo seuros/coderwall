@@ -1,0 +1,20 @@
+.card-panel#team-blog
+  a.button_to_toggle href="javascript:;"
+    span.btn-floating.right
+      i.material-icons swap_vert
+    h5 Team Blog RSS Feed
+  .divider
+  .content_to_toggle
+    = form_for @team, url: team_admin_path(:section=>'team-blog'), method: :put, html: {id: 'edit_team_stack', multipart: true} do |f|
+      .row
+        .col.s12
+          =render "shared/error_messages", target: @team
+      .row
+        .col.s12.input-field
+          = f.text_field :blog_feed
+          = f.label :blog_feed, 'URL of your team blog rss/atom feed'
+
+      .row
+        .col.s6.input-field
+        .col.s6.input-field
+          = f.submit :submit, class: 'btn right'

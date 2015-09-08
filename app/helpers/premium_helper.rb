@@ -190,7 +190,7 @@ module PremiumHelper
   end
 
   def stack_or_default(team)
-    team.has_stack? ? team.stack.first(8) : ["jQuery", "Ruby", "Postgresql", "Heroku", "R", "Machine Learning"]
+    team.has_stack? ? team.stack : %w(jQuery Ruby Postgresql Heroku R)
   end
 
   def team_job_size(team)

@@ -1,0 +1,11 @@
+header.card.padding_5.bg_transparent style="background-color:#{team.branding_hex_color}"
+  .team-header.cf
+    .row.valign-wrapper
+      .col.s2.team-logo.center-align
+        =link_to teamname_path(team.slug)
+          =image_tag(team.avatar_url, :width => '104', :class => 'team-page-avatar responsive-img')
+      .col.s10
+        h1 =link_to team.name, teamname_path(team.slug)
+        = follow_team_link(team)
+        = team_connections_links(team)
+

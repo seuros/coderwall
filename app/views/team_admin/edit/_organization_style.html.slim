@@ -1,0 +1,33 @@
+.card-panel#organization-style
+  a.button_to_toggle href="javascript:;"
+    span.btn-floating.right
+      i.material-icons swap_vert
+    h5 Organization way
+  .divider
+  .content_to_toggle
+    = form_for @team,url: team_admin_path(:section=>'organization-style'),method: :put,  html: {id: 'edit_team_organization', multipart: true} do |f|
+      .row
+        .col.s12
+          =render "shared/error_messages", target: @team
+      .row
+        .col.s5.input-field
+          = f.text_area :organization_way_name , class: 'materialize-textarea'
+          = f.label :organization_way_name, 'Organization way name :This is how we roll'
+        .col.s7.input-field
+          = f.text_area :organization_way , class: 'materialize-textarea'
+          = f.label :organization_way, 'Organization way : How does the organization run? What values help you accomplish your goals?'
+
+        .row
+          .col.s12.file-field.input-field
+            .row
+              .col.s5
+                = image_tag(organization_way_photo_or_default(@team), style:"max-height: 200px;")
+              .col.s7
+                .btn.black
+                  span =" #{@team.organization_way_photo.present? ? 'Use other organization_way_photo' : 'Upload your organization_way_photo'}"
+                  = f.file_field :organization_way_photo
+                input.file-path.validate type="text" /
+      .row
+        .col.s6.input-field
+        .col.s6.input-field
+          = f.submit :submit, class: 'btn right'

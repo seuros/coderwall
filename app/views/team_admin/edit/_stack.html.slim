@@ -1,0 +1,22 @@
+.card-panel#stack
+  a.button_to_toggle href="javascript:;"
+    span.btn-floating.right
+      i.material-icons swap_vert
+    h5 Our stack and technology
+  .divider
+  .content_to_toggle
+    = form_for @team, url: team_admin_path(:section=>'stack'), method: :put, html: {id: 'edit_team_stack', multipart: true} do |f|
+      .row
+        .col.s12
+          =render "shared/error_messages", target: @team
+      .row
+        .col.s6.input-field
+          = f.text_area :stack_list , class: 'materialize-textarea'
+          = f.label :stack_list, 'Technology Stack & Tools'
+        .col.s6.input-field.grey-text
+          p Comma separated list of programming languages, databases, platforms, tools and techs your team employs.
+          i Example : jQuery, Ruby, Postgresql, Heroku, ...
+      .row
+        .col.s6.input-field
+        .col.s6.input-field
+          = f.submit :submit, class: 'btn right'

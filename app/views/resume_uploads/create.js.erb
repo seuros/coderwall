@@ -1,0 +1,7 @@
+<% unless current_user.errors.any? %>
+    alert("Your resume has been uploaded.");
+<% else  %>
+    alert("There was an error uploaded your resume.");
+<% end  %>
+
+$("#jobs-tab").html("<%= escape_javascript(render partial: 'users/edit/jobs') %>");

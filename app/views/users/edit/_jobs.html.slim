@@ -1,18 +1,26 @@
-.card.no_shadow
-  .card-content
-    .row
-      .col.s6.center-align
-        - if current_user.has_resume?
-          p= link_to 'Your current resume', current_user.resume_url, class: 'black darken-2 track waves-effect waves-light btn-large', 'data-action' => 'upload resume', 'data-from' => 'job application'
-          br
-          br
+.card-panel
+  .row
+    .col.s6.center-align
+      - if current_user.has_resume?
+        p
+          =link_to current_user.resume_url, class: 'hoverable'
+            i.material-icons.large description
+            br
+            |Your current resume
+        br
+        p= link_to 'Remove this resume', resume_uploads_path(current_user.id), remote: true, method: :delete,:confirm => 'Are you sure to remove this resume ?', class: 'red btn'
+      - else
         p.info-post Upload your resume. It will be sent automatically to positions you apply for through Coderwall.
-      .col.s6
-        = form_tag(resume_uploads_url, method: :post, multipart: true) do
-          = hidden_field_tag :user_id, current_user.id
+
+    .col.s6
+      = form_tag(resume_uploads_url(:section=>'jobs-tab'), method: :post,  multipart: true) do
+
+        fieldset
+          legend =" #{current_user.has_resume? ? 'Change your resume' : 'Upload your resume'}"
           .file-field.input-field
-            .btn
-              span File
+            .btn.black
+              span Browse
               = file_field_tag :resume
             input.file-path.validate type="text" /
-          .save =submit_tag 'Save', class: 'btn'
+          .clearfix.margin_bottom_10
+            .save =submit_tag 'Save', class: 'btn'

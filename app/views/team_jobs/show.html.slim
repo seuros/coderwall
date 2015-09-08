@@ -1,0 +1,46 @@
+#page
+  .container
+    #teams-premium-wrap
+      =render 'teams/show/team-header', team: @team
+      =render 'teams/show/team_details', team: @team
+    #team_jobs
+      .card-panel style="border-top: solid 8px #{@team.branding_hex_color}"
+        .job-header
+          h5
+            a href="#" =@job.title
+            i="(#{@job.opportunity_type})"
+          span
+            -unless @job.accepts_applications?
+              =link_to('Learn More', @job.link, target: :new, class: 'learn-more btn')
+            - else
+              - if signed_in? && !current_user.already_applied_for?(@job)
+                =link_to('apply', teamname_job_apply_path(slug: @team.slug, job_id: @job.public_id), class: 'apply btn')
+              - else
+                .btn.black="already applied"
+        .clearfix
+        .row
+          .col.s8
+            ul.skills
+              -@job.tags.each do |job_tag|
+                li=job_tag
+            .clearfix
+            .job-description
+              = sanitize(@job.to_html)
+          .col.s4
+            .job-locations.section
+              ul.locations
+                -@job.locations.each do |location|
+                  li
+                    i.material-icons location_on
+                    =location
+              .clearfix
+            .divider
+            - unless @other_jobs.blank?
+              .other_jobs.section
+                h5 ="Other opportunities at #{@team.name}"
+                ol
+                  - @other_jobs.each do |job|
+                    li
+                      =link_to job.title, teamname_job_path(slug: @team.slug, job_id: job.public_id), class: ''
+
+

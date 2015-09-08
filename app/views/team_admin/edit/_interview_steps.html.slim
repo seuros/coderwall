@@ -1,0 +1,30 @@
+.card-panel#interview-steps
+  a.button_to_toggle href="javascript:;"
+    span.btn-floating.right
+      i.material-icons swap_vert
+    h5 Interviewing
+  .divider
+  .content_to_toggle
+    = form_for @team, url: team_admin_path(:section=>'interview-steps'), method: :put, html: {id: 'edit_team_why_work', multipart: true} do |f|
+      .row
+        .col.s12
+          =render "shared/error_messages", target: @team
+      .row
+        .col.s5.grey-text
+          p Mention code challenges or other tests if you ask for them
+          p Who on the team will applicants typically get to interact with during the interview process
+        .col.s7
+          .row.form-inputs
+            =link_to('Add Interview Step','#',:class=>'add-interview-step btn')
+            ul.edit-interview-steps
+              -@team.interview_steps.each_with_index do |step, index|
+                li.interview-step
+                  .col.s12.input-field
+                    = f.text_area :interview_steps, name: 'team[interview_steps][]',value: step,class: 'materialize-textarea'
+                    =link_to('Remove', '#', :class => 'remove-interview-step  red-text')
+
+
+      .row
+        .col.s6.input-field
+        .col.s6.input-field
+          = f.submit :submit, class: 'btn right'

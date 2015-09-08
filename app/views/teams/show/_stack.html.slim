@@ -1,0 +1,6 @@
+-if team.has_stack?
+  .card-panel#stack.white-text.center-align.bg_transparent style="background-color:#{@team.branding_hex_color}"
+    h2 Our stack and technology
+    ul.stack-list.cf
+      - stack_or_default(team).each do |stack_item|
+        li =stack_item

@@ -1,0 +1,10 @@
+.card-panel
+  .card-content
+    h5.card-title Top 5 Most Popular Protips
+    p
+      ol
+        - protips_list(:trending, 5).each do |protip|
+          li
+            =link_to "#{protip.title} by #{protip.user.name}", protip_path(protip.public_id)
+  .card-action
+    /=render :partial => "sessions/join_buttons", :locals => {:message => "Join to start earning badges for your open source contributions, discover protips and connect with other developers"}

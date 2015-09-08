@@ -12,6 +12,7 @@
 #  team_banner :string(255)
 #  team_avatar :string(255)
 #  role        :string(255)      default("member")
+#  title       :string(255)
 #
 
 # TODO: Move team_banner to uhhh... the Team. Maybe that would make sense.
@@ -31,13 +32,27 @@ class Teams::Member < ActiveRecord::Base
   mount_uploader :team_banner, BannerUploader
   # process_in_background :team_banner, ResizeTiltShiftBannerJob
 
-
   scope :active, -> { where(state: 'active') }
   scope :pending, -> { where(state: 'pending') }
+  scope :leaved, -> { where(state: 'leaved') }
+  scope :to_approuve, -> { where(state: ['pending','leaved']) }
   scope :sorted, -> { active.joins(:user).order('users.score_cache DESC') }
   scope :top, ->(limit= 1) { sorted.limit(limit) }
   scope :members, -> { where(role: 'member') }
   scope :admins, -> { where(role: 'admin') }
+
+  state_machine :state, :initial => :pending do
+    event :approve_join do
+      transition all => :active
+    end
+    event :deny_join do
+      transition :pending => :leaved
+    end
+    event :remove do
+      transition all => :leaved
+    end
+  end
+
 
   def score
     badges.all.sum(&:weight)

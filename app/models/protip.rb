@@ -271,7 +271,7 @@ class Protip < ActiveRecord::Base
       query              += " #{query_string}" unless query_string.nil?
       Protip.search(query, [], page: page, per_page: per_page)
     rescue Errno::ECONNREFUSED
-      team = Team.where(slug: team_id).first
+      team = Team.find_by_slug(team_id)
       team.members.flat_map(&:protips)
     end
 

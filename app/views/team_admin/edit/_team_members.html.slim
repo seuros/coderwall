@@ -1,0 +1,21 @@
+
+.card-panel
+  a.button_to_toggle href="javascript:;"
+    span.btn-floating.right
+      i.material-icons swap_vert
+    h5 Team members
+  .divider
+  .content_to_toggle
+    .row
+      .col.s12
+        ul.tabs
+          li.tab.col.s3
+            a href="#members"  Members
+          li.tab.col.s3
+            a href="#members_pending" To approuve
+      #members.col.s12
+        =render 'team_admin/edit/members',team: team
+
+      #members_pending.col.s12
+        =render 'team_admin/edit/members_pending', team: team
+

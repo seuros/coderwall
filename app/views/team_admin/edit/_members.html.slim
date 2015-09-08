@@ -1,0 +1,17 @@
+table.bordered
+  - team.sorted_team_members.each do |member|
+    tr
+      td
+        =users_team_image_tag(member,:class=>'img_in_shadow',:width=>120)
+      td
+        =link_to member.display_name, profile_path(member.username),target: :blank
+        br
+        i.grey-text
+          ="Title : #{member.title}" if member.title.present?
+        br
+        i.grey-text
+          ="Responsibilitie : #{member.team_responsibilities}" if member.team_responsibilities.present?
+      td=member.about
+      td
+        =link_to destroy_team_members_path(team_id: team, member_id: member.id), method: :delete, remote: true, :confirm => 'Are you sure?', :class => 'padding_5 red white-text hoverable'
+          ="Remove"

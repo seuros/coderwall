@@ -1,0 +1,6 @@
+li.collection-item.team_location.avatar
+  i.material-icons.circle location_on
+  .name = location.name
+  a.address href="#location-map"
+    = ActiveSupport::JSON.encode( location.address )
+  .description= location.description

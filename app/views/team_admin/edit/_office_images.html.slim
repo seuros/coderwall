@@ -1,0 +1,30 @@
+.card-panel#office-images
+  a.button_to_toggle href="javascript:;"
+    span.btn-floating.right
+      i.material-icons swap_vert
+    h5 Photos from the office
+  .divider
+  .content_to_toggle
+    = form_for @team,url: team_admin_path(:section=>'office-images'),method: :put,  html: {id: 'edit_team_office_images', multipart: true} do |f|
+      .row
+        .col.s12
+          =render "shared/error_messages", target: @team
+          .col.s6.file-field
+      .row
+        .col.s12
+          .form-inputs
+
+            =link_to  "javascript:;", :class => 'photos-chooser btn', 'data-fit-w' => 260
+              i.material-icons.left add
+              ="Add photos"
+            ul.edit-photos
+              -@team.office_photos.each do |photo_link|
+                li.col.s3.preview-photos
+                  =link_to('Remove', '#', :class => 'remove-photo red-text')
+                  =image_tag(photo_link)
+                  =f.hidden_field :office_photos, name: 'team[office_photos][]', value: photo_link
+
+      .row
+        .col.s6.input-field
+        .col.s6.input-field
+          = f.submit :submit, class: 'btn right'

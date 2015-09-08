@@ -1,0 +1,11 @@
+-if team.has_protips?
+  .card-panel#team-protips style="border-top: solid 8px #{team.branding_hex_color}"
+    h5 ="Latest Protips from the #{team.name} Team"
+
+    ul.collection
+      -team_protips.page.per(2).each do |protip|
+        =render 'teams/show/protip', protip: protip
+
+    -if team_protips_count > 0
+      a.btn href=(teamname_protips_path(team.slug)) View more protips
+

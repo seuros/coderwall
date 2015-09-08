@@ -1,0 +1,36 @@
+.card-panel#locations
+  a.button_to_toggle href="javascript:;"
+    span.btn-floating.right
+      i.material-icons swap_vert
+    h5 Where do you have offices?
+  .divider
+  .content_to_toggle
+    =nested_form_for @team, url: team_admin_path(:section=>'locations'), method: :put, html: {id: 'edit_team_locations', multipart: true} do |f|
+      .row
+        .col.s12
+          =render "shared/error_messages", target: @team
+      .row
+        .col.s12.grey-text Specify points of interest (e.g. restaurants, bars, public transportation) and other amenities and highlights for each office location
+      .row
+        .col.s12
+          = f.fields_for :locations do |f2|
+            .card-panel.grey.lighten-4
+              .row
+                .col.s12.input-field
+                  = f2.text_field :name
+                  = f2.label :name
+                .col.s12.input-field
+                  = f2.text_area :description, class: 'materialize-textarea'
+                  = f2.label :description
+                .col.s12.input-field
+                  = f2.text_field :address
+                  = f2.label :address
+                .col.s12.input-field
+                  = f2.link_to_remove "Remove this location" ,class: 'padding_5 red white-text hoverable'
+
+          = f.link_to_add "Add a location", :locations, class: 'btn'
+
+      .row
+        .col.s6.input-field
+        .col.s6.input-field
+          = f.submit :submit, class: 'btn right'

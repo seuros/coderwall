@@ -1,0 +1,53 @@
+.card-panel#why-work
+  a.button_to_toggle href="javascript:;"
+    span.btn-floating.right
+      i.material-icons swap_vert
+    h5 ="Why work for #{team.name}?"
+  .divider
+  .content_to_toggle
+    = form_for @team, url: team_admin_path(:section=>'why-work'), method: :put, html: {id: 'edit_team_why_work', multipart: true} do |f|
+      .row
+        .col.s12
+          =render "shared/error_messages", target: @team
+      .row
+        .col.s12.grey-text
+          p ="List the reasons why #{team.name} is unique?"
+          i ="Share up to 3 reasons why its great to work on the #{team.name} team."
+      .row
+        .col.s4.input-field
+          = f.text_area :reason_name_1, class: 'materialize-textarea'
+          = f.label :reason_name_1
+        .col.s8.input-field
+          = f.text_area :reason_description_1, class: 'materialize-textarea'
+          = f.label :reason_description_1
+      .divider
+      .row
+        .col.s4.input-field
+          = f.text_area :reason_name_2, class: 'materialize-textarea'
+          = f.label :reason_name_2
+        .col.s8.input-field
+          = f.text_area :reason_description_2, class: 'materialize-textarea'
+          = f.label :reason_description_2
+      .divider
+      .row
+        .col.s4.input-field
+          = f.text_area :reason_name_3, class: 'materialize-textarea'
+          = f.label :reason_name_3
+        .col.s8.input-field
+          = f.text_area :reason_description_3, class: 'materialize-textarea'
+          = f.label :reason_description_3
+      .divider
+      .row
+        .col.s12.file-field.input-field
+          .row
+            .col.s5
+              = image_tag(why_work_image_or_default(@team), style: "max-height: 200px;")
+            .col.s7
+              .btn.black
+                span =" #{@team.why_work_image.present? ? 'Use other why_work_image' : 'Upload your why_work_image'}"
+                = f.file_field :why_work_image
+              input.file-path.validate type="text" /
+      .row
+        .col.s6.input-field
+        .col.s6.input-field
+          = f.submit :submit, class: 'btn right'

@@ -1,0 +1,13 @@
+-if team.has_locations?
+  .card-panel.location#locations style="border-top: solid 8px #{team.branding_hex_color}"
+    #location-map
+    .location-details
+      .selected
+        h5= team.primary_address_name
+        p.address= ActiveSupport::JSON.encode(team.primary_address)
+        p.description= team.primary_address_description
+
+      -if team.locations.any?
+        ul.collection.locations
+          - team.locations.each do |location|
+            =render 'teams/show/location', team: team, location: location

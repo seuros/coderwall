@@ -1,0 +1,6 @@
+.card-panel#team_members_list.grey.padding_5
+  .flexslider
+    ul.slides#team_members_carousel
+      =render :partial => 'teams/show/member', :collection => team.sorted_team_members ,:locals => {team: team}
+  .divider
+  .card-panel#member_thumb_expanded

@@ -1,0 +1,19 @@
+.card-panel#big-headline
+  a.button_to_toggle href="javascript:;"
+    span.btn-floating.right
+      i.material-icons swap_vert
+    h5 Team headline
+  .divider
+  .content_to_toggle
+    = form_for @team,url: team_admin_path(:section=>'big-headline'),method: :put,  html: {id: 'edit_team_headline', multipart: true} do |f|
+      .row
+        .col.s12
+          =render "shared/error_messages", target: @team
+      .row
+        .col.s12.input-field
+          = f.text_area :headline , class: 'materialize-textarea'
+          = f.label :headline,"What defines engineering at #{team.name}?"
+      .row
+        .col.s6.input-field
+        .col.s6.input-field
+          = f.submit :submit, class: 'btn right'

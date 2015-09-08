@@ -1,0 +1,15 @@
+-if team.has_challenges?
+  #challenges
+    .row
+      .col class=(has_impact?(team) ? 's6' : 's12')
+        .card.bg_transparent style="background-color:#{team.branding_hex_color}"
+          .card-content.white-text
+            span.card-title  Our challenge
+            p=our_challenge_or_default(team)
+
+      -if has_impact?(team)
+        .col.s6
+          .card.bg_transparent style="background-color:#{team.branding_hex_color}"
+            .card-content.white-text
+              span.card-title  Your impact
+              p=your_impact_or_default(team)

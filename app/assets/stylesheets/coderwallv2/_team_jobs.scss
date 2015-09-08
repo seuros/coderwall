@@ -1,0 +1,36 @@
+#team_jobs{
+  .job-header{
+    box-shadow: inset 0 0 2px 2px #ffffff;
+    padding: 20px 0;
+    border-bottom: solid 1px #eaeaea;
+    h4{
+       margin: 0;
+       display: inline-block;
+      i{
+        margin-left: 10px;
+        color: #7D7D7D;
+        font-style: normal;
+      }
+    }
+    span{
+      float: right;
+      background: #e2e2e2;
+      border-radius: 4px;
+      font-size: 1.2em;
+      margin: 0 5px 5px 0;
+      padding: 6px 12px;
+    }
+  }
+  .skills li, .locations li {
+    float: left;
+    background: #e2e2e2;
+    border-radius: 4px;
+    font-size: 1.2em;
+    margin: 0 5px 5px 0;
+    padding: 6px 12px;
+  }
+
+  textarea#cover_letter{
+    min-height: 400px;
+  }
+}

@@ -1,0 +1,8 @@
+-if team.has_office_images?
+  .card-panel#office-images.blue-grey.darken-4.white-text.center-align
+    h4.card-title Photos from the office
+    .row
+      -office_photos_or_default(team).each do |photo|
+        .col.s3
+          a.fancybox  rel="group" href=(photo) =image_tag(photo)
+

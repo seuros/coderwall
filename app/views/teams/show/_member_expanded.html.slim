@@ -1,0 +1,25 @@
+-member = member_expanded
+.row
+  .col.s6
+    .row
+      .col.s12
+        - if show_avatar
+          =link_to(users_image_tag(member), profile_path(member.username), :title => member.display_name, :class => "padding_5 avatar")
+        h4=member.display_name
+        p class=(member.about.blank? ?  "" : "about-text")
+          =member.about
+
+    .row
+      .col.s12
+        -unless member.team_responsibilities.blank?
+          h5 What I work on
+          p=member.team_responsibilities
+
+    .row
+      .col.s12
+        =link_to profile_path(member.username), :class => 'btn black',target: :blank
+          i.fa.fa-eye
+          =" View Profile"
+
+  .col.s6
+    =image_tag(team_banner_image_for(member), class: 'img_in_shadow team_banner_image_for_member')

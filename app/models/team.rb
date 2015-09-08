@@ -86,6 +86,9 @@ class Team < ActiveRecord::Base
   include SearchModule
 
   mount_uploader :avatar, TeamUploader
+  mount_uploader :big_image, TeamUploader
+  mount_uploader :organization_way_photo, TeamUploader
+  mount_uploader :why_work_image, TeamUploader
 
   has_many :invitations
   has_many :opportunities, dependent: :destroy
@@ -94,6 +97,7 @@ class Team < ActiveRecord::Base
   has_many :jobs,      class_name: 'Opportunity',     foreign_key: 'team_id', dependent: :destroy
   has_many :locations, class_name: 'Teams::Location', foreign_key: 'team_id'
   has_many :members,   class_name: 'Teams::Member',   foreign_key: 'team_id'
+
   def admins
     members.admins
   end

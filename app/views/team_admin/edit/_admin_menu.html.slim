@@ -1,0 +1,8 @@
+
+.section
+  =link_to 'Show', teamname_path(@team.slug), class: 'btn'
+  -if team.has_specified_enough_info? || @team.can_post_job?
+    =link_to 'Add job', new_team_opportunity_path(@team), class: 'btn'
+
+
+

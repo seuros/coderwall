@@ -1,0 +1,13 @@
+-if team.has_favourite_benefits?
+
+  .card-panel#favourite-benefits.white-text.bg_transparent style="background-color:#{team.branding_hex_color}"
+
+    =image_tag("premium-teams/our-favourite-benefits.png", class:'right')
+
+    dl.faq
+      dt=team.benefit_name_1
+      dd=team.benefit_description_1
+      dt=team.benefit_name_2
+      dd=team.benefit_description_2
+      dt=team.benefit_name_3
+      dd=team.benefit_description_3

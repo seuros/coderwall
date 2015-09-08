@@ -1,0 +1,9 @@
+li.collection-item.avatar
+  =image_tag(protip.user.avatar, class:'circle')
+  span.title
+    a href=(protip_path(protip.public_id))
+      = protip.title
+  p =protip.user.username
+  =link_to upvote_protip_path(protip.public_id), :remote => true, :method => :post, :rel => "nofollow", :class => "upvote secondary-content"
+    i.material-icons thumb_up
+    =protip.upvotes

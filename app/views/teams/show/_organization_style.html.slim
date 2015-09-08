@@ -1,0 +1,8 @@
+-if team.has_organization_style?
+  .card-panel#organization-style style="color:#{team.branding_hex_color}; border-top: solid 8px #{team.branding_hex_color}"
+    .row
+      .col.s4
+        =image_tag(organization_way_photo_or_default(team), class:'left')
+      .col.s8
+        h4 =organization_way_name_or_default(team)
+        p =organization_way_or_default(team)

@@ -1,0 +1,28 @@
+.card-panel#big-quote
+  a.button_to_toggle href="javascript:;"
+    span.btn-floating.right
+      i.material-icons swap_vert
+    h5 Accomplishments & Collaboration
+  .divider
+  .content_to_toggle
+    = form_for @team,url: team_admin_path(:section=>'big-quote'),method: :put,  html: {id: 'edit_team_big_quote', multipart: true} do |f|
+      .row
+        .col.s12
+          =render "shared/error_messages", target: @team
+      .row
+        .col.s6.input-field
+          = f.text_area :big_quote , class: 'materialize-textarea'
+          = f.label :big_quote, "Quotes from a team member about culture or an accomplishment"
+        .col.s6.file-field.input-field
+          .row
+            .col.s5
+              = image_tag(@team.big_image, style:"max-width: 200px;") if @team.big_image.present?
+            .col.s7
+              .btn.black
+                span =" #{@team.big_image.present? ? 'Use other big_image' : 'Upload your big_image'}"
+                = f.file_field :big_image
+              input.file-path.validate type="text" /
+      .row
+        .col.s6.input-field
+        .col.s6.input-field
+          = f.submit :submit, class: 'btn right'

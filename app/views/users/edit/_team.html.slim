@@ -1,9 +1,9 @@
-li.no_shadow.active
+li.active
   .collapsible-header.active
     i=image_tag(membership.team.avatar_url)
     ="#{membership.team.name} ( #{membership.state} )"
   .collapsible-body style=("display: none;")
-    = form_for membership, url: teams_update_users_path(membership),method: :post, html: { multipart: true} do |form|
+    = form_for membership, url: teams_update_users_path(membership,:section=>'team-tab'),method: :post, html: { multipart: true} do |form|
       .row
         .col.s12
         = render "shared/error_messages", target: membership
@@ -12,20 +12,25 @@ li.no_shadow.active
           = form.label :title, 'Title:'
           = form.text_field :title
       .row
-        .input-field.col.s12.m6
-          .special-setting
-            = form.label :team_avatar, 'Avatar:'
-            p= "Optionally select unique avatar for the #{membership.team.name} team page. If you do not select an avatar it will default to the same avatar on your profile."
-            .preview
-              = image_tag(membership.team_avatar) unless membership.team_avatar.blank?
+        .col.s4
+          = image_tag(membership.team_avatar, style: 'max-height: 200px;') unless membership.team_avatar.blank?
+          p.grey-text== "Optionally select unique avatar for the #{membership.team.name} team page. If you do not select an avatar it will default to the same avatar on your profile."
+        .col.s8.file-field.input-field
+          .btn.black
+            span =" #{membership.team_avatar.present? ? 'Use other team avatar' : 'Upload your team avatar'}"
             = form.file_field :team_avatar
-        .input-field.col.s12.m6
-          .special-setting.team-profile-img
-            = form.label :team_banner, 'Banner:'
-            p= "Optionally select unique background image for the #{membership.team.name} team page. If you do not select a background photo, it will default to the same banner that is on your personal profile."
-            .preview
-              = image_tag(membership.team_banner) unless membership.team_banner.blank?
+          input.file-path.validate type="text" /
+
+      .row
+        .col.s4
+          = image_tag(membership.team_banner, style: 'width: 100%;') unless membership.team_banner.blank?
+          p.grey-text= "Optionally select unique background image for the #{membership.team.name} team page. If you do not select a background photo, it will default to the same banner that is on your personal profile."
+        .col.s8.file-field.input-field
+          .btn.black
+            span =" #{membership.team_banner.present? ? 'Use other team banner' : 'Upload your team banner'}"
             = form.file_field :team_banner
+          input.file-path.validate type="text" /
+
       .row
         .input-field.col.s12.m6
         .input-field.col.s12.m6

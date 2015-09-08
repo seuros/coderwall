@@ -1,0 +1,6 @@
+li.collection-item.avatar
+  i.material-icons.circle style="background-color:#{team.branding_hex_color}" library_books
+  h5 =link_to entry.title, entry.url, class: '', target: :new
+  i =entry.published.strftime("%Y/%m/%d")
+  p = blog_content(entry)
+  =link_to 'Read more', entry.url, class: 'secondary-content padding_5 green white-text hoverable', target: :new

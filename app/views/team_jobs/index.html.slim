@@ -1,0 +1,11 @@
+#page
+  .container
+    #teams-premium-wrap
+      =render 'teams/show/team-header', team: @team
+      =render 'teams/show/team_details', team: @team
+    #team_jobs
+      .card-panel style="border-top: solid 8px #{@team.branding_hex_color}"
+        h5 ="Latest Jobs from the #{@team.name} Team"
+        .row
+          -@jobs.each_with_index do |job, index|
+            =render 'team_jobs/list',job: job,index: index

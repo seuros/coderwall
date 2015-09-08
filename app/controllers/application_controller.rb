@@ -185,12 +185,22 @@ class ApplicationController < ActionController::Base
       format.all { render text: "Not Found", :content_type => Mime::TEXT, status: :not_found }
     end
   end
+  def render_404_v2
+    respond_to do |format|
+      format.any(:html, :json, :xml) { render 'errors/coderwallv2/not_found', status: :not_found }
+      format.all { render text: "Not Found", :content_type => Mime::TEXT, status: :not_found }
+    end
+  end
 
   def render_500
     respond_to do |type|
       type.html { render file: File.join(Rails.root, 'public', '500.html'), layout: nil, status: 500 }
       type.all { render nothing: true, status: 500 }
     end
+  end
+
+  def required_team_admin!(team)
+    return head(:forbidden) unless is_admin? || team.admin?(current_user)
   end
 
   def require_admin!

@@ -1,0 +1,24 @@
+.card-panel#video
+  a.button_to_toggle href="javascript:;"
+    span.btn-floating.right
+      i.material-icons swap_vert
+    h5 Video url
+  .divider
+  .content_to_toggle
+    = form_for @team, url: team_admin_path(:section=>'video'), method: :put, html: {id: 'edit_team_youtube_url', multipart: true} do |f|
+      .row
+        .col.s12
+          =render "shared/error_messages", target: @team
+      .row
+        .col.s6.input-field
+          = f.text_field :youtube_url
+          = f.label :youtube_url,'video url'
+
+        .col.s6
+          -unless @team.youtube_url.blank?
+            .responsive-video.right controls=""
+              iframe  width='100%'  height='200px' src=@team.video_url frameborder="0" allowfullscreen=true
+      .row
+        .col.s6.input-field
+        .col.s6.input-field
+          = f.submit :submit, class: 'btn right'

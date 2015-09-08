@@ -1,0 +1,10 @@
+-cache ['v2', 'team-member', team, member, team_banner_image_for(member)] do
+  li.member_thumb_slide.card-panel
+    =users_team_image_tag(member)
+    p class="flex-caption"
+      .center-align=member.display_name
+      -unless member.title.blank?
+        .center-align
+          i=member.title
+    .hide.member_thumb_details
+      =render partial: 'teams/show/member_expanded', object: member, :locals => {team: team,:show_avatar => (team.sorted_team_members.count == 1)}
