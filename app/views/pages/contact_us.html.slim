@@ -2,33 +2,32 @@
 
 #page
   .container#contact_us
-  .row
-    .col.s12.m8.offset-m2.l6.offset-l3
-      .signin-panel.card.blue-grey.darken-1.center-align
-        .card-content
-          span.card-title
-            h5
-              u="Contact Us".upcase
 
-          .row
-            .col.s12
-              h5.white-text Do you have an idea to improve Coderwall ?
-              p.info-post
-                | Coderwall is built, maintained and owned by its community. We call it crowd-
-                strong founding
-                |.
-                br
-                =link_to "http://hackernoons.com/all-our-coderwall-are-belong-to-you", target: :blank
-                  | Learn more about how this works and how you can get involved.
-          .row
-            .col.s12.m12.l6
-              .card-panel
-                h5 Questions
-                p If you have questions about achievements we encourage you to first look at the
-                =link_to('View FAQ', faq_path,class:'btn blue')
+    .card.blue-grey.darken-1.center-align
+      .card-content
+        span.card-title
+          h5
+            u="Contact Us".upcase
 
-            .col.s12.m12.l6
-              .card-panel
-                h5 Support
-                p For support and feedback please send us a support email, and we will be in touch.
-                =mail_to('support@coderwall.com', 'support@coderwall.com',class:'btn blue')
+        .row
+          .col.s12
+            h5.white-text Do you have an idea to improve Coderwall ?
+            p.info-post
+              | Coderwall is built, maintained and owned by its community. We call it crowd-
+              strong founding
+              |.
+              br
+              =link_to "http://hackernoons.com/all-our-coderwall-are-belong-to-you", target: :blank
+                | Learn more about how this works and how you can get involved.
+        .row
+          .col.s12.m12.l6
+            .card-panel
+              h5 Questions
+              p If you have questions about achievements we encourage you to first look at the
+              =link_to('View FAQ', faq_path,class:'btn blue')
+
+          .col.s12.m12.l6
+            .card-panel
+              h5 Support
+              p For support and feedback please send us a support email, and we will be in touch.
+              =mail_to('support@coderwall.com', 'support@coderwall.com',class:'btn blue')
