@@ -4,6 +4,22 @@ body{
 #page{
   margin-top: 50px;
 }
+#main-content{
+  //margin-bottom: 260px;
+}
+footer.page-footer{
+  //position: absolute;
+  //bottom: 0;
+  //left: 0;
+  //width: 100%;
+  .right_part{
+    text-align: right;
+  }
+  .copyright,.credits {
+    color: #444;
+    text-align: center;
+  }
+}
 nav {
   .nav-wrapper  {
     ul li a img {
@@ -67,19 +83,7 @@ nav {
   }
 }
 
-footer.page-footer{
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  .right_part{
-    text-align: right;
-  }
-  .copyright,.credits {
-    color: #444;
-    text-align: center;
-  }
-}
+
 
 .info-post{
   color: #fff !important;
