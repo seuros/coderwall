@@ -137,6 +137,7 @@ source 'https://rubygems.org' do
     gem 'flog'
     gem 'fukuzatsu'
     gem 'guard-rspec'
+    gem 'guard-livereload'
     gem 'rails-erd'
     gem 'rubocop'
     gem 'spring'

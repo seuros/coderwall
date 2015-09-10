@@ -14,3 +14,10 @@ group :rspec, halt_on_fail: true do
     watch('app/controllers/application_controller.rb') { "spec/controllers" }
   end
 end
+
+guard :livereload do
+  watch(%r{app/views/.+\.(erb|haml|slim)})
+  watch(%r{app/helpers/.+\.rb})
+  watch(%r{public/.+\.(css|js|html)})
+  watch(%r{(app|vendor)(/assets/\w+/(.+\.(sass|coffee|html))).*}) { |m| "/assets/#{m[3]}" }
+end
