@@ -29,7 +29,15 @@ nav {
     opacity: 0.8;
   }
 }
-
+.github-color{
+  color: #000000;
+}
+.twitter-color{
+  color: #03C1E6;
+}
+.linkedin-color{
+  color: #1278AB;
+}
 .bg-primary {
   background-color: #d95626;
   color: #fff;
@@ -59,7 +67,11 @@ nav {
   }
 }
 
-footer{
+footer.page-footer{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   .right_part{
     text-align: right;
   }

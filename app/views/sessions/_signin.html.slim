@@ -3,20 +3,20 @@
     .signin-panel.card.blue-grey.darken-1.center-align
       .card-content.white-text
         span.card-title
-          h4 Sign in
+          h5 ="Sign in".upcase
         .row
           .col.s12
             p Sign in with your GitHub, Twitter, or LinkedIn account below for easy access to your profile. (We never post without your permission.)
         .row
           .col.s12.m4
-            =link_to link_github_path, :rel => 'nofollow', :class => 'link_github signin-btn white btdn hoverable'
+            =link_to link_github_path, :rel => 'nofollow', :class => 'github-color signin-btn white btdn hoverable'
               i.fa.fa-github-square
               ="Via GitHub"
           .col.s12.m4
-            =link_to link_twitter_path, :rel => 'nofollow', :class => 'link_twitter signin-btn white bdtn hoverable'
+            =link_to link_twitter_path, :rel => 'nofollow', :class => 'twitter-color signin-btn white bdtn hoverable'
               i.fa.fa-twitter-square
               ="Via Twitter"
           .col.s12.m4
-            =link_to link_linkedin_path, :rel => 'nofollow', :class => 'link_linkedin signin-btn white btdn hoverable'
+            =link_to link_linkedin_path, :rel => 'nofollow', :class => 'linkedin-color signin-btn white btdn hoverable'
               i.fa.fa-linkedin-square
               ="Via Linkedin"
