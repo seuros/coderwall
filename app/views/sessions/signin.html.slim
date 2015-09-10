@@ -1,0 +1,9 @@
+-content_for :body_id , 'sign-in'
+
+-content_for :page_title, 'coderwall : sign in'
+
+-content_for :mixpanel, record_view_event('sign up page')
+
+#page
+  .container#signin
+    = render :partial => 'signin', :locals => { :reason => "for easy access to your profile" }
