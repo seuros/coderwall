@@ -13,5 +13,4 @@ li = link_to(t('awesome_jobs'), jobs_path, class: jobs_nav_class)
       li.divider
       li= link_to(t('sign_out'), sign_out_path)
 - else
-  li = link_to(t('sign_in'), signin_path, class: signin_nav_class)
-  li = link_to(t('register'), signin_path, class: signup_nav_class)
+  li = link_to("#{t('sign_in')} / #{t('register')}", signin_path, class: signin_nav_class)
