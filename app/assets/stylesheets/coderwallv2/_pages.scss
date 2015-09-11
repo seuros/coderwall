@@ -39,4 +39,26 @@
       }
     }
   }
+
+  #privacy_policy{
+    .section{
+      max-height: 500px;
+      overflow-y: scroll;
+    }
+  }
+  #tos{
+    .section{
+      max-height: 500px;
+      overflow-y: scroll;
+      ol{
+        padding: 0;
+        li {
+          list-style: none;
+          background: image_url('gold-star.png') no-repeat left top;
+          padding-left: 25px;
+          margin-bottom: 15px;
+        }
+      }
+    }
+  }
 }
