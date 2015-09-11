@@ -1,4 +1,4 @@
-RSpec.describe TeamsController, type: :routing do
+RSpec.describe TeamJobsController, type: :routing do
   describe 'routing' do
 
     it 'routes to #show with  job id' do
