@@ -4,6 +4,17 @@ body{
 #page{
   margin-top: 50px;
 }
+
+footer.page-footer{
+
+  .right_part{
+    text-align: right;
+  }
+  .copyright,.credits {
+    color: #444;
+    text-align: center;
+  }
+}
 nav {
   .nav-wrapper  {
     ul li a img {
@@ -29,7 +40,18 @@ nav {
     opacity: 0.8;
   }
 }
-
+.text-grey2{
+  color: #636363 !important;
+}
+.github-color{
+  color: #000000;
+}
+.twitter-color{
+  color: #03C1E6;
+}
+.linkedin-color{
+  color: #1278AB;
+}
 .bg-primary {
   background-color: #d95626;
   color: #fff;
@@ -59,15 +81,7 @@ nav {
   }
 }
 
-footer{
-  .right_part{
-    text-align: right;
-  }
-  .copyright,.credits {
-    color: #444;
-    text-align: center;
-  }
-}
+
 
 .info-post{
   color: #fff !important;

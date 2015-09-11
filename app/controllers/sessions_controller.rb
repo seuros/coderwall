@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :require_registration
+  layout 'coderwallv2'   , :only => [:signin]
 
   def new
     #FIXME

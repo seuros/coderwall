@@ -1,6 +1,5 @@
 class PagesController < ApplicationController
 
-
   def show
     show_pages_params = params.permit(:page, :layout)
 
@@ -19,7 +18,7 @@ class PagesController < ApplicationController
   end
 
   def whitelist_layout(requested_layout)
-    return 'application' if requested_layout.nil?
+    return 'coderwallv2' if requested_layout.nil?
 
     raise ActionController::RoutingError.new('Not Found') unless ::STATIC_PAGE_LAYOUTS.include?(requested_layout.to_s)
 
