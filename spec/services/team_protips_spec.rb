@@ -10,21 +10,21 @@ RSpec.describe TeamProtips do
   describe '#members_ids' do
 
     it 'returns nil' do
-      expect(service.members_ids).to be_nil
+      expect(service.members_ids).to be_empty
     end
   end
 
   describe '#protips' do
 
     it 'returns nil' do
-      expect(service.protips).to be_nil
+      expect(service.protips.count).to be_zero
     end
   end
 
   describe '#has_protips?' do
 
     it 'returns 0' do
-      expect(service.has_protips?).to eql(0)
+      expect(service.has_protips?).to be false
     end
   end
 
