@@ -1,8 +1,11 @@
 #page{
-  #contact_us{
 
-  }
   #api{
+    .answers{
+      .gist{
+        width: 100ch;
+      }
+    }
     .questions{
       ul.question-list{
         li{
@@ -17,9 +20,6 @@
         }
       }
     }
-    .blue-grey{
-      a{
-      }
-    }
+
   }
 }
