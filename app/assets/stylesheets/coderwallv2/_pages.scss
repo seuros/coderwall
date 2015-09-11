@@ -24,6 +24,7 @@
 
   #faq{
     .questions{
+      background: image_url('side-shadow.png') repeat-y left;
       ul.question-list{
         li{
           margin-bottom: 15px;
