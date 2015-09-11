@@ -1,11 +1,6 @@
 #page{
 
   #api{
-    .answers{
-      .gist{
-        width: 100ch;
-      }
-    }
     .questions{
       ul.question-list{
         li{
@@ -20,6 +15,27 @@
         }
       }
     }
+    .answers{
+      .gist{
+        width: 100ch;
+      }
+    }
+  }
 
+  #faq{
+    .questions{
+      ul.question-list{
+        li{
+          margin-bottom: 15px;
+          background: image_url('gold-star.png') no-repeat left top;
+          padding-left: 25px;
+        }
+      }
+    }
+    .answers{
+      h6{
+        margin: 30px 0 10px;
+      }
+    }
   }
 }
